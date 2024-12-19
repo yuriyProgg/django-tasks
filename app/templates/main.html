@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>TASKS app</h1>
+
+    {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}" class="text-decoration-none">
+        <button class="btn btn-outline-danger d-flex gap-2">
+          <div class="d-none d-sm-block">Выйти</div>
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
+      </a>
+    {% endif %}
+  </div>
+  <form hx-post="{% url 'tasks' %}" hx-target="#tasks" hx-swap="innerHTML" class="d-flex gap-2 my-5">
+    {% csrf_token %}
+    <input type="text" name="description" placeholder="Описание задачи" class="form-control" maxlength="100" />
+    <button type="submit" class="btn btn-primary d-flex gap-2">
+      <i class="bi bi-plus-lg"></i>
+      <div class="d-none d-sm-block">Добавить</div>
+    </button>
+  </form>
+  <div id="tasks" hx-get="{% url 'tasks' %}" hx-trigger="load, every 5s" hx-swap="innerHTML">...</div>
+{% endblock %}

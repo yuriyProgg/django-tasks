@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "django-todos"
+version = "0.1.0"
+description = "Todos app with Django 5"
+authors = ["Yuri Masalov <masalov.09@bk.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.4"
+django-compressor = "^4.5.1"
+uvicorn = "^0.34.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,29 @@
+{% if data %}
+  <ul class="list-group list-group-flush">
+    {% for task in data %}
+      <li class="list-group-item py-3 px-0 px-sm-2 d-flex gap-4">
+        {% comment %}Задача{% endcomment %}
+        {% if task.is_done %}
+          <div class="w-100 overflow-x-auto text-nowrap text-decoration-line-through text-success">{{ task }}</div>
+        {% else %}
+          <div class="w-100 overflow-x-auto text-nowrap">{{ task }}</div>
+        {% endif %}
+        <div class="d-flex gap-2">
+          {% comment %}Кнопка завершения{% endcomment %}
+          <form hx-post="{% url 'complete task' task.pk %}" hx-target="#tasks" hx-swap="innerHTML">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-check-lg"></i></button>
+          </form>
+
+          {% comment %}Кнопка удаления{% endcomment %}
+          <form hx-post="{% url 'delete task' task.pk %}" hx-target="#tasks" hx-swap="innerHTML" hx-confirm="Вы точно хотите удалить задачу?">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></button>
+          </form>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Нет задач</p>
+{% endif %}

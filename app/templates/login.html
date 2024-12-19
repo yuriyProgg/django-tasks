@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Вход
+{% endblock %}
+
+{% block main %}
+  <form action="{% url 'login' %}" method="post" class="p-2 p-sm-4 p-md-5 border rounded shadow mt-5">
+    {% csrf_token %}
+    <h3 class="text-center mb-3">Вход</h3>
+    <div class="mb-3">
+      <label for="username" class="form-label">Имя пользователя</label>
+      <input type="text" name="username" class="form-control" required id="username" />
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Пароль</label>
+      <input type="password" name="password" class="form-control" required id="password" />
+    </div>
+    {% if error %}
+      <div class="text-danger mb-3">{{ error }}</div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary w-100 mb-2">Войти</button>
+    <div class="text-center">
+      <a href="{% url 'registration' %}" class="link-secondary link-offset-2">Регистрация</a>
+    </div>
+  </form>
+{% endblock %}
